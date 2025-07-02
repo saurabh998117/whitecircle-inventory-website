@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Inventory System Pre-Booking</title>
+  <style>
+    body {
+      background: url(' https://media.istockphoto.com/id/1295904711/photo/factory-engineer-hold-tablet-manage-inventory-control-and-delivery-smart-transportation.jpg?s=2048x2048&w=is&k=20&c=MoszBHF0AhGdDeEgTTTF0eYf6hjOG6ED95MHhf5r_64=') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 80px auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      text-align: center;
+      color: #4e342e;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    .checkbox-group {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+    }
+
+    .checkbox-group input {
+      margin-right: 10px;
+    }
+
+    button {
+      width: 100%;
+      background-color: #6d4c41;
+      color: white;
+      padding: 12px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #5d4037;
+    }
+
+    #msg {
+      margin-top: 15px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .green-text { color: green; }
+    .red-text { color: red; }
+
+    .loader {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #6d4c41;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Inventory System Pre-Booking</h1>
+
+  <form id="preBookingForm">
+    <input type="text" name="business_name" placeholder="Company / Industry / Business Name *" required />
+    <input type="text" name="user_name" placeholder="Your Name *" required />
+    <input type="email" name="user_mail" placeholder="Your Email *" required />
+    
+    <div class="checkbox-group">
+      <input type="checkbox" id="demo_interest" name="demo_interest" />
+      <label for="demo_interest">Interested to see demo</label>
+    </div>
+
+    <button type="submit">Pre-Book Now</button>
+  </form>
+
+  <div class="loader" id="loaderBox">
+    <div class="spinner"></div>
+    <p>Please wait...</p>
+  </div>
+
+  <div id="msg"></div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("preBookingForm");
+    const loaderBox = document.getElementById("loaderBox");
+    const msg = document.getElementById("msg");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      msg.innerHTML = "";
+
+      const businessName = form.business_name.value.trim();
+      const userName = form.user_name.value.trim();
+      const email = form.user_mail.value.trim();
+
+      if (!businessName || !userName || !email) {
+        msg.innerHTML = "<span class='red-text'>All required fields must be filled!</span>";
+        return;
+      }
+
+      loaderBox.style.display = "block";
+
+      setTimeout(() => {
+        loaderBox.style.display = "none";
+
+        const wantsDemo = form.demo_interest.checked;
+        msg.innerHTML = <span class='green-text'>Pre-booking successful${wantsDemo ? " — we'll send you a demo soon!" : "!"}</span>;
+        form.reset();
+      }, 2000);
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Whitecircle Group</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --dark-navy: #0d1b2a;
+      --deep-blue: #1b263b;
+      --slate-blue: #415a77;
+      --light-blue: #778da9;
+      --off-white: #e0e1dd;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--off-white);
+      color: var(--dark-navy);
+    }
+    .btn-primary {
+      background-color: var(--slate-blue);
+      color: var(--off-white);
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+    .btn-primary:hover {
+      background-color: var(--deep-blue);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="bg-[#415a77] text-white p-4 fixed top-0 w-full shadow-md z-50">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-xl font-bold">Whitecircle Group</h1>
+      <nav class="space-x-4">
+        <a href="#product" class="hover:underline">Product</a>
+        <a href="#solutions" class="hover:underline">Solutions</a>
+        <a href="#pricing" class="hover:underline">Pricing</a>
+        <a href="prebooking.html" class="hover:underline">Pre Booking</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 text-center bg-[#e0e1dd] text-[#0d1b2a]">
+    <div class="container mx-auto max-w-3xl px-4">
+      <h2 class="text-4xl font-bold mb-4">Introducing Our All-in-One Stock Inventory Management System</h2>
+      <p class="text-lg mb-8">A smart user-friendly solution to help businesses track, manage, and control inventory seamlessly. Simplify billing, updates, and reporting all in one place.</p>
+      <div class="flex justify-center space-x-4">
+        <a href="prebooking.html" class="btn-primary">Pre Booking</a>
+        <a href="#demo-video" class="btn-primary bg-transparent border-2 border-[#415a77] text-[#415a77] hover:bg-[#415a77] hover:text-white">Watch Demo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Section -->
+  <section id="product" class="py-16 bg-white text-center">
+    <h2 class="text-3xl font-bold text-[#0d1b2a] mb-4">Stock Management System</h2>
+    <p class="text-[#415a77] font-semibold mb-6">🔥 Save 65% — Limited Time Pre-Booking Offer!</p>
+    <ul class="max-w-xl mx-auto text-left text-[#1b263b] space-y-2">
+      <li><i class="fas fa-file-invoice text-[#415a77]"></i> Generate Bills on Mobile</li>
+      <li><i class="fas fa-bell text-[#415a77]"></i> Real-Time Low Stock Alerts</li>
+      <li><i class="fas fa-robot text-[#415a77]"></i> Smart AI Assistance</li>
+      <li><i class="fas fa-sliders-h text-[#415a77]"></i> Fully Customizable</li>
+      <li><i class="fas fa-lock text-[#415a77]"></i> Secure & Reliable</li>
+      <li><i class="fas fa-mobile-alt text-[#415a77]"></i> Works Seamlessly on Mobile</li>
+    </ul>
+  </section>
+
+  <!-- Solutions Section -->
+  <section id="solutions" class="py-16 bg-[#f6f6f6] text-center">
+    <h2 class="text-3xl font-bold text-[#0d1b2a] mb-4">Solutions</h2>
+    <ul class="max-w-xl mx-auto text-left text-[#1b263b] space-y-2">
+      <li><i class="fas fa-shopping-cart text-[#415a77]"></i> E-commerce — Tailored CMS for conversion</li>
+      <li><i class="fas fa-cloud text-[#415a77]"></i> SaaS — Growth-driven product delivery</li>
+      <li><i class="fas fa-broadcast-tower text-[#415a77]"></i> Media — Multi-platform content distribution</li>
+    </ul>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing" class="py-16 bg-white text-center">
+    <h2 class="text-3xl font-bold text-[#0d1b2a] mb-4">Pricing Plans</h2>
+    <p class="text-[#415a77] font-semibold mb-6">💰 Affordable options for every business</p>
+    <div class="flex flex-wrap justify-center gap-6">
+      <div class="w-80 bg-[#e0e1dd] rounded-lg shadow p-6">
+        <h3 class="text-xl font-semibold mb-2">Basic</h3>
+        <p class="font-bold mb-4">₹9,999/month</p>
+        <ul class="text-left space-y-1">
+          <li>✔️ Unlimited Invoices</li>
+          <li>✔️ Create Accounting Vouchers</li>
+          <li>✔️ Digital Invoices & Reports</li>
+          <li>✔️ Fully User-Configurable Invoicing</li>
+          <li>✔️ Ledger Reconciliation</li>
+          <li>✔️ Multi Company / Multi Financial Year</li>
+        </ul>
+        <a href="prebooking.html" class="btn-primary mt-4 inline-block">Get Free Demo</a>
+      </div>
+      <div class="w-80 bg-[#e0e1dd] rounded-lg shadow p-6">
+        <h3 class="text-xl font-semibold mb-2">Standard</h3>
+        <p class="font-bold mb-4">₹14,999/month</p>
+        <ul class="text-left space-y-1">
+          <li>✔️ All Features of Basic</li>
+          <li>✔️ GST e-returns in JSON</li>
+          <li>✔️ Direct Upload of GSTR-1/IFF</li>
+          <li>✔️ Auto E-Invoice & E-Way Bill Generation</li>
+          <li>✔️ Auto Download & Reconcile GSTR 1/3B/2A/2B</li>
+          <li>✔️ Check Party Return Status*</li>
+        </ul>
+        <a href="prebooking.html" class="btn-primary mt-4 inline-block">Get Free Demo</a>
+      </div>
+      <div class="w-80 bg-[#e0e1dd] rounded-lg shadow p-6">
+        <h3 class="text-xl font-semibold mb-2">Enterprise</h3>
+        <p class="font-bold mb-4">₹19,999/month</p>
+        <ul class="text-left space-y-1">
+          <li>✔️ All Features of Standard</li>
+          <li>✔️ Multi-Branch Management</li>
+          <li>✔️ Work in Offline/Online Mode</li>
+          <li>✔️ Data Merging of HQ/BO (Offline Mode)</li>
+          <li>✔️ Branch-wise Reporting</li>
+          <li>✔️ Voucher/Master Approval & Rejection</li>
+        </ul>
+        <a href="prebooking.html" class="btn-primary mt-4 inline-block">Get Free Demo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#415a77] text-white py-8">
+    <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div>
+        <h2 class="font-bold text-lg mb-2">Whitecircle Group</h2>
+        <p>IT Solutions & Consulting</p>
+        <a href="https://whitecirclegroup.in" target="_blank" class="hover:underline">🌐www.whitecirclegroup.in</a>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Product</h4>
+        <ul>
+          <li><a href="#" class="hover:underline">CRM</a></li>
+          <li><a href="#" class="hover:underline">Website</a></li>
+          <li><a href="#" class="hover:underline">Mobile Apps</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Solutions</h4>
+        <ul>
+          <li><a href="#solutions" class="hover:underline">E-commerce</a></li>
+          <li><a href="#solutions" class="hover:underline">SaaS</a></li>
+          <li><a href="#solutions" class="hover:underline">Media</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Contact</h4>
+        <ul>
+          <li><a href="tel:+917509759872" class="hover:underline">+91-7509759872</a></li>
+          <li><a href="mailto:sales@whitecirclegroup.in" class="hover:underline">sales@whitecirclegroup.in</a></li>
+           
+        </ul>
+      </div>
+    </div>
+    <div class="text-center mt-6 text-sm">© 2025 Whitecircle Group. All rights reserved.</div>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      document.querySelectorAll('section').forEach(sec => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+          sec.classList.add('visible');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
