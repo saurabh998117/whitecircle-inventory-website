@@ -33,18 +33,94 @@
     .btn-primary:hover {
       background-color: var(--deep-blue);
     }
+    /* Mobile navigation menu styles */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      background-color: var(--slate-blue);
+      position: absolute;
+      top: 100%; /* Position right below the header */
+      left: 0;
+      padding: 1rem 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .mobile-menu a {
+      color: white;
+      padding: 0.75rem 1rem;
+      text-align: center;
+      width: 100%;
+      display: block;
+    }
+    .mobile-menu a:hover {
+      background-color: var(--deep-blue);
+    }
+    /* Show mobile menu when open */
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    /* Hide desktop nav on small screens */
+    @media (max-width: 768px) {
+      .desktop-nav {
+        display: none;
+      }
+      .menu-toggle {
+        display: block;
+      }
+    }
+    /* Show desktop nav on larger screens */
+    @media (min-width: 769px) {
+      .desktop-nav {
+        display: flex;
+      }
+      .menu-toggle {
+        display: none;
+      }
+      .mobile-menu {
+        display: none !important; /* Ensure it's hidden on desktop */
+      }
+    }
   </style>
 </head>
 <body>
   <!-- Header -->
   <header class="bg-[#415a77] text-white p-4 fixed top-0 w-full shadow-md z-50">
-    <div class="container mx-auto flex justify-between items-center">
-      <h1 class="text-xl font-bold">Whitecircle Group</h1>
-      <nav class="space-x-4">
-        <a href="#product" class="hover:underline">Product</a>
-        <a href="#solutions" class="hover:underline">Solutions</a>
-        <a href="#pricing" class="hover:underline">Pricing</a>
+    <div class="container mx-auto flex justify-between items-center relative">
+      <a href="index.html" class="flex items-center space-x-2"> <!-- Flex container for logo and text -->
+        <img src="https://i.ibb.co/nsqVYvby/Whitecircle-Logo.jpg" alt="Whitecircle Group Logo" class="h-8 w-8 rounded-full"> <!-- Logo image -->
+        <span class="text-xl font-bold">Whitecircle Group</span> <!-- Company Name -->
+      </a>
+      
+      <!-- Desktop Navigation -->
+      <nav class="desktop-nav space-x-4">
+        <a href="index.html" class="hover:underline">Home</a>
+        <a href="#about" class="hover:underline">About</a>
+        <a href="#services" class="hover:underline">Services</a>
         <a href="prebooking.html" class="hover:underline">Pre Booking</a>
+        <a href="demo.html" class="hover:underline">Demo</a> 
+        <!-- Search Icon -->
+        <button class="text-white hover:text-gray-300 focus:outline-none ml-4">
+          <i class="fas fa-search"></i>
+        </button>
+      </nav>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button class="menu-toggle text-white text-2xl focus:outline-none" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Mobile Navigation Menu -->
+      <nav class="mobile-menu">
+        <a href="index.html">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="prebooking.html">Pre Booking</a>
+        <a href="demo.html">Demo</a>
+        <!-- Search Icon for Mobile -->
+        <button class="text-white hover:text-gray-300 focus:outline-none p-2">
+          <i class="fas fa-search"></i> Search
+        </button>
       </nav>
     </div>
   </header>
@@ -56,14 +132,14 @@
       <p class="text-lg mb-8">A smart user-friendly solution to help businesses track, manage, and control inventory seamlessly. Simplify billing, updates, and reporting all in one place.</p>
       <div class="flex justify-center space-x-4">
         <a href="prebooking.html" class="btn-primary">Pre Booking</a>
-        <a href="#demo-video" class="btn-primary bg-transparent border-2 border-[#415a77] text-[#415a77] hover:bg-[#415a77] hover:text-white">Watch Demo</a>
+        <a href="demo.html" class="btn-primary bg-transparent border-2 border-[#415a77] text-[#415a77] hover:bg-[#415a77] hover:text-white">Watch Demo</a>
       </div>
     </div>
   </section>
 
-  <!-- Product Section -->
-  <section id="product" class="py-16 bg-white text-center">
-    <h2 class="text-3xl font-bold text-[#0d1b2a] mb-4">Stock Management System</h2>
+  <!-- Product Section (Can be considered as a Service) -->
+  <section id="services" class="py-16 bg-white text-center">
+    <h2 class="text-3xl font-bold text-[#0d1b2a] mb-4">Our Services: Stock Management System</h2>
     <p class="text-[#415a77] font-semibold mb-6">🔥 Save 65% — Limited Time Pre-Booking Offer!</p>
     <ul class="max-w-xl mx-auto text-left text-[#1b263b] space-y-2">
       <li><i class="fas fa-file-invoice text-[#415a77]"></i> Generate Bills on Mobile</li>
@@ -75,9 +151,9 @@
     </ul>
   </section>
 
-  <!-- Solutions Section -->
+  <!-- Solutions Section (Can be considered as part of Services) -->
   <section id="solutions" class="py-16 bg-[#f6f6f6] text-center">
-    <h2 class="text-3xl font-bold text-[#0d1b2a] mb-4">Solutions</h2>
+    <h2 class="text-3xl font-bold text-[#0d1b2a] mb-4">Other Solutions</h2>
     <ul class="max-w-xl mx-auto text-left text-[#1b263b] space-y-2">
       <li><i class="fas fa-shopping-cart text-[#415a77]"></i> E-commerce — Tailored CMS for conversion</li>
       <li><i class="fas fa-cloud text-[#415a77]"></i> SaaS — Growth-driven product delivery</li>
@@ -85,49 +161,48 @@
     </ul>
   </section>
 
+  <!-- About Section - Placeholder -->
+  <section id="about" class="py-16 bg-white text-center">
+    <h2 class="text-3xl font-bold text-[#0d1b2a] mb-4">About Whitecircle Group</h2>
+    <p class="text-[#1b263b] max-w-2xl mx-auto">
+      Whitecircle Group is a leading IT solutions and consulting firm dedicated to providing innovative and user-friendly solutions for businesses of all sizes. We specialize in inventory management systems, e-commerce solutions, SaaS development, and media content distribution, helping our clients streamline operations and achieve their growth objectives. Our commitment is to deliver secure, reliable, and customizable technology that empowers your business.
+    </p>
+  </section>
+
   <!-- Pricing Section -->
-  <section id="pricing" class="py-16 bg-white text-center">
+  <section id="pricing" class="py-16 bg-[#f6f6f6] text-center">
     <h2 class="text-3xl font-bold text-[#0d1b2a] mb-4">Pricing Plans</h2>
     <p class="text-[#415a77] font-semibold mb-6">💰 Affordable options for every business</p>
     <div class="flex flex-wrap justify-center gap-6">
       <div class="w-80 bg-[#e0e1dd] rounded-lg shadow p-6">
         <h3 class="text-xl font-semibold mb-2">Basic</h3>
-        <p class="font-bold mb-4">₹9,999/month</p>
+        <p class="font-bold mb-4">₹2999/-month</p>
         <ul class="text-left space-y-1">
-          <li>✔️ Unlimited Invoices</li>
-          <li>✔️ Create Accounting Vouchers</li>
-          <li>✔️ Digital Invoices & Reports</li>
-          <li>✔️ Fully User-Configurable Invoicing</li>
-          <li>✔️ Ledger Reconciliation</li>
-          <li>✔️ Multi Company / Multi Financial Year</li>
+          <li>✔️ Billing system</li>
+          <li>✔️ Stock management system without scanner</li>
+          <li>✔️ 4 report & 4 dashboard</li>
+          <li>✔️ 20 mail per day</li>
+          <li>✔️ Smartphone access</li>
+          <li>✔️ Accountant management</li>
         </ul>
-        <a href="prebooking.html" class="btn-primary mt-4 inline-block">Get Free Demo</a>
+        <a href="Demo.html" class="btn-primary mt-4 inline-block">Get Free Demo</a>
       </div>
       <div class="w-80 bg-[#e0e1dd] rounded-lg shadow p-6">
         <h3 class="text-xl font-semibold mb-2">Standard</h3>
-        <p class="font-bold mb-4">₹14,999/month</p>
+        <p class="font-bold mb-4">₹7999/-month</p>
         <ul class="text-left space-y-1">
-          <li>✔️ All Features of Basic</li>
-          <li>✔️ GST e-returns in JSON</li>
-          <li>✔️ Direct Upload of GSTR-1/IFF</li>
-          <li>✔️ Auto E-Invoice & E-Way Bill Generation</li>
-          <li>✔️ Auto Download & Reconcile GSTR 1/3B/2A/2B</li>
-          <li>✔️ Check Party Return Status*</li>
+          <li>✔️ Billing system</li>
+          <li>✔️ Stock management system with scanner</li>
+          <li>✔️ WhatsApp functionality </li>
+          <li>✔️ report & dashboard accor to customer  requirement </li>
+          <li>✔️ 500+ mail per day</li>
+          <li>✔️ Stock entry with scanner </li>
+          <li>✔️ User ccess </li>
+          <li>✔️ Multiple user </li>
+          <li>✔️ Smartphone access </li>
+          <li>✔️ Accountant management </li>
         </ul>
-        <a href="prebooking.html" class="btn-primary mt-4 inline-block">Get Free Demo</a>
-      </div>
-      <div class="w-80 bg-[#e0e1dd] rounded-lg shadow p-6">
-        <h3 class="text-xl font-semibold mb-2">Enterprise</h3>
-        <p class="font-bold mb-4">₹19,999/month</p>
-        <ul class="text-left space-y-1">
-          <li>✔️ All Features of Standard</li>
-          <li>✔️ Multi-Branch Management</li>
-          <li>✔️ Work in Offline/Online Mode</li>
-          <li>✔️ Data Merging of HQ/BO (Offline Mode)</li>
-          <li>✔️ Branch-wise Reporting</li>
-          <li>✔️ Voucher/Master Approval & Rejection</li>
-        </ul>
-        <a href="prebooking.html" class="btn-primary mt-4 inline-block">Get Free Demo</a>
+        <a href="Demo.html" class="btn-primary mt-4 inline-block">Get Free Demo</a>
       </div>
     </div>
   </section>
@@ -141,34 +216,41 @@
         <a href="https://whitecirclegroup.in" target="_blank" class="hover:underline">🌐www.whitecirclegroup.in</a>
       </div>
       <div>
-        <h4 class="font-semibold mb-2">Product</h4>
+        <h4 class="font-semibold mb-2">Quick Links</h4>
         <ul>
-          <li><a href="#" class="hover:underline">CRM</a></li>
-          <li><a href="#" class="hover:underline">Website</a></li>
-          <li><a href="#" class="hover:underline">Mobile Apps</a></li>
+          <li><a href="#pricing" class="hover:underline">Pricing</a></li>
+          <li><a href="demo.html" class="hover:underline">Demo</a></li>
+          <li><a href="prebooking.html" class="hover:underline">Pre-Booking</a></li>
+          <li><a href="#about" class="hover:underline">About Us</a></li>
         </ul>
       </div>
       <div>
-        <h4 class="font-semibold mb-2">Solutions</h4>
-        <ul>
-          <li><a href="#solutions" class="hover:underline">E-commerce</a></li>
-          <li><a href="#solutions" class="hover:underline">SaaS</a></li>
-          <li><a href="#solutions" class="hover:underline">Media</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="font-semibold mb-2">Contact</h4>
+        <h4 class="font-semibold mb-2">Contact Info</h4>
         <ul>
           <li><a href="tel:+917509759872" class="hover:underline">+91-7509759872</a></li>
           <li><a href="mailto:sales@whitecirclegroup.in" class="hover:underline">sales@whitecirclegroup.in</a></li>
-           
         </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Follow Us</h4>
+        <div class="flex space-x-4 mt-2">
+          <a href="#" class="text-white hover:text-gray-300 text-2xl" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="text-white hover:text-gray-300 text-2xl" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-white hover:text-gray-300 text-2xl" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="text-white hover:text-gray-300 text-2xl" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
       </div>
     </div>
     <div class="text-center mt-6 text-sm">© 2025 Whitecircle Group. All rights reserved.</div>
   </footer>
 
   <script>
+    // Script for mobile menu toggle
+    document.querySelector('.menu-toggle').addEventListener('click', function() {
+      document.querySelector('.mobile-menu').classList.toggle('open');
+    });
+
+    // Script for scroll animation (existing)
     window.addEventListener('scroll', () => {
       document.querySelectorAll('section').forEach(sec => {
         const rect = sec.getBoundingClientRect();
