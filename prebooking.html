@@ -2,33 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Inventory System Pre-Booking</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    :root {
+      --dark-navy: #0d1b2a;
+      --deep-blue: #1b263b;
+      --slate-blue: #415a77;
+      --light-blue: #778da9;
+      --off-white: #e0e1dd;
+    }
     body {
-      background: url(' https://media.istockphoto.com/id/1295904711/photo/factory-engineer-hold-tablet-manage-inventory-control-and-delivery-smart-transportation.jpg?s=2048x2048&w=is&k=20&c=MoszBHF0AhGdDeEgTTTF0eYf6hjOG6ED95MHhf5r_64=') no-repeat center center fixed;
+      background: url('https://media.istockphoto.com/id/1295904711/photo/factory-engineer-hold-tablet-manage-inventory-control-and-delivery-smart-transportation.jpg?s=2048x2048&w=is&k=20&c=MoszBHF0AhGdDeEgTTTF0eYf6hjOG6ED95MHhf5r_64=') no-repeat center center fixed;
       background-size: cover;
-      font-family: 'Arial', sans-serif;
+      font-family: 'Inter', sans-serif;
       margin: 0;
       padding: 0;
+      color: var(--dark-navy);
+      min-height: 100vh; /* Ensure body takes full viewport height for footer to stick to bottom */
+      display: flex;
+      flex-direction: column;
     }
 
     .container {
       max-width: 500px;
-      margin: 80px auto;
+      margin: 40px auto; /* Reduced top margin for better visibility on all screens */
       background: rgba(255, 255, 255, 0.95);
       padding: 30px;
       border-radius: 12px;
       box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      flex-grow: 1; /* Allow container to grow and push footer down */
     }
 
     h1 {
       text-align: center;
-      color: #4e342e;
+      color: var(--dark-navy);
       margin-bottom: 20px;
     }
 
     input[type="text"],
-    input[type="email"] {
+    input[type="email"],
+    input[type="tel"] { /* Added type="tel" for mobile number */
       width: 100%;
       padding: 12px;
       margin-top: 10px;
@@ -47,9 +64,9 @@
       margin-right: 10px;
     }
 
-    button {
+    button[type="submit"] {
       width: 100%;
-      background-color: #6d4c41;
+      background-color: var(--slate-blue);
       color: white;
       padding: 12px;
       margin-top: 20px;
@@ -57,10 +74,11 @@
       border-radius: 6px;
       font-size: 18px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
-    button:hover {
-      background-color: #5d4037;
+    button[type="submit"]:hover {
+      background-color: var(--deep-blue);
     }
 
     #msg {
@@ -80,7 +98,7 @@
 
     .spinner {
       border: 6px solid #f3f3f3;
-      border-top: 6px solid #6d4c41;
+      border-top: 6px solid var(--slate-blue);
       border-radius: 50%;
       width: 40px;
       height: 40px;
@@ -92,62 +110,335 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
+
+    .message-box {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .message-box-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 400px;
+      border-radius: 10px;
+      text-align: center;
+      position: relative;
+    }
+
+    .message-box-close {
+      color: #aaa;
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .message-box-close:hover,
+    .message-box-close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* Header specific styles for prebooking.html - NOT FIXED */
+    .prebooking-header {
+      background-color: var(--slate-blue);
+      color: white;
+      padding: 0.75rem 1rem; /* Slightly reduced padding for a more compact header */
+      width: 100%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      position: relative; /* Ensure it's not fixed */
+      z-index: 50;
+    }
+    .prebooking-header .logo-container { /* New class for logo and text */
+      display: flex;
+      align-items: center;
+      space-x-2;
+    }
+    .prebooking-header .logo-img { /* New class for logo image */
+      height: 2rem; /* Adjusted size for smaller header */
+      width: 2rem;
+      border-radius: 9999px; /* Tailwind's rounded-full */
+      margin-right: 0.5rem; /* Space between logo and text */
+    }
+    .prebooking-header .logo-text {
+      font-size: 1.25rem; /* Slightly smaller font size for logo text */
+      font-weight: bold;
+    }
+    .prebooking-header .nav-links {
+      display: flex;
+      gap: 1rem;
+    }
+    .prebooking-header .nav-links a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      padding: 0.25rem 0.5rem; /* Smaller padding for nav links */
+    }
+    .prebooking-header .nav-links a:hover {
+      color: var(--off-white);
+    }
+    .prebooking-header .search-icon {
+      margin-left: 1rem;
+    }
+
+    /* Mobile menu styles for prebooking.html */
+    .prebooking-mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .prebooking-mobile-nav {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      background-color: var(--deep-blue);
+      padding: 0.5rem 0; /* Reduced padding */
+      position: absolute;
+      top: 100%;
+      left: 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .prebooking-mobile-nav.open {
+      display: flex;
+    }
+    .prebooking-mobile-nav a {
+      color: white;
+      padding: 0.5rem 1rem; /* Reduced padding */
+      text-align: center;
+      text-decoration: none;
+      display: block;
+    }
+    .prebooking-mobile-nav a:hover {
+      background-color: var(--slate-blue);
+    }
+
+    @media (max-width: 768px) {
+      .prebooking-header .nav-links {
+        display: none;
+      }
+      .prebooking-header .search-icon {
+        display: none;
+      }
+      .prebooking-mobile-menu-toggle {
+        display: block;
+      }
+      .container {
+        margin-top: 20px; /* Further reduced top margin for very small screens if needed */
+      }
+    }
   </style>
 </head>
 <body>
-
-<div class="container">
-  <h1>Inventory System Pre-Booking</h1>
-
-  <form id="preBookingForm">
-    <input type="text" name="business_name" placeholder="Company / Industry / Business Name *" required />
-    <input type="text" name="user_name" placeholder="Your Name *" required />
-    <input type="email" name="user_mail" placeholder="Your Email *" required />
+  <!-- Header -->
+  <header class="prebooking-header">
+    <a href="index.html" class="logo-container"> <!-- Flex container for logo and text -->
+      <img src="https://i.ibb.co/nsqVYvby/Whitecircle-Logo.jpg" alt="Whitecircle Group Logo" class="logo-img"> <!-- Logo image -->
+      <span class="logo-text">Whitecircle Group</span> <!-- Company Name -->
+    </a>
     
-    <div class="checkbox-group">
-      <input type="checkbox" id="demo_interest" name="demo_interest" />
-      <label for="demo_interest">Interested to see demo</label>
+    <!-- Desktop Navigation -->
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#services">Services</a>
+      <a href="prebooking.html">Pre Booking</a>
+      <a href="demo.html">Demo</a>
+      <button class="search-icon text-white hover:text-gray-300 focus:outline-none">
+        <i class="fas fa-search"></i>
+      </button>
+    </nav>
+
+    <!-- Mobile Menu Toggle Button -->
+    <button class="prebooking-mobile-menu-toggle" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Mobile Navigation Menu -->
+    <nav class="prebooking-mobile-nav">
+      <a href="index.html">Home</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#services">Services</a>
+      <a href="prebooking.html">Pre Booking</a>
+      <a href="demo.html">Demo</a>
+      <button class="text-white hover:text-gray-300 focus:outline-none p-2">
+        <i class="fas fa-search"></i> Search
+      </button>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h1>Inventory System Pre-Booking</h1>
+
+    <form id="preBookingForm">
+      <input type="text" name="business_name" placeholder="Company / Industry / Business Name *" required />
+      <input type="text" name="user_name" placeholder="Your Name *" required />
+      <input type="email" name="user_mail" placeholder="Your Email *" required />
+      <input type="tel" name="mobile_number" placeholder="Your Mobile Number *" required pattern="[0-9]{10}" title="Please enter a 10-digit mobile number" /> <!-- Added mobile number input -->
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="demo_interest" name="demo_interest" />
+        <label for="demo_interest">Interested to see demo</label>
+      </div>
+
+      <button type="submit">Pre-Book Now</button>
+    </form>
+
+    <div class="loader" id="loaderBox">
+      <div class="spinner"></div>
+      <p>Please wait...</p>
     </div>
 
-    <button type="submit">Pre-Book Now</button>
-  </form>
-
-  <div class="loader" id="loaderBox">
-    <div class="spinner"></div>
-    <p>Please wait...</p>
+    <div id="messageBox" class="message-box">
+      <div class="message-box-content">
+        <span class="message-box-close">&times;</span>
+        <p id="messageBoxText"></p>
+      </div>
+    </div>
   </div>
 
-  <div id="msg"></div>
-</div>
+  <!-- Footer -->
+  <footer class="bg-[#415a77] text-white py-8 mt-10">
+    <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div>
+        <h2 class="font-bold text-lg mb-2">Whitecircle Group</h2>
+        <p>IT Solutions & Consulting</p>
+        <a href="https://whitecirclegroup.in" target="_blank" class="hover:underline">🌐www.whitecirclegroup.in</a>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Quick Links</h4>
+        <ul>
+          <li><a href="#pricing" class="hover:underline">Pricing</a></li>
+          <li><a href="demo.html" class="hover:underline">Demo</a></li>
+          <li><a href="prebooking.html" class="hover:underline">Pre-Booking</a></li>
+          <li><a href="#about" class="hover:underline">About Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Contact Info</h4>
+        <ul>
+          <li><a href="tel:+917509759872" class="hover:underline">+91-7509759872</a></li>
+          <li><a href="mailto:sales@whitecirclegroup.in" class="hover:underline">sales@whitecirclegroup.in</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Follow Us</h4>
+        <div class="flex space-x-4 mt-2">
+          <a href="#" class="text-white hover:text-gray-300 text-2xl" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="text-white hover:text-gray-300 text-2xl" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-white hover:text-gray-300 text-2xl" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="text-white hover:text-gray-300 text-2xl" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-6 text-sm">© 2025 Whitecircle Group. All rights reserved.</div>
+  </footer>
 
 <script>
+  // Script for mobile menu toggle
+  document.querySelector('.prebooking-mobile-menu-toggle').addEventListener('click', function() {
+    document.querySelector('.prebooking-mobile-nav').classList.toggle('open');
+  });
+
+  function showMessageBox(message, isSuccess) {
+    const messageBox = document.getElementById("messageBox");
+    const messageBoxText = document.getElementById("messageBoxText");
+    messageBoxText.textContent = message;
+    messageBoxText.style.color = isSuccess ? "green" : "red";
+    messageBox.style.display = "flex"; 
+
+    const closeButton = document.querySelector(".message-box-close");
+    closeButton.onclick = function() {
+      messageBox.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      if (event.target == messageBox) {
+        messageBox.style.display = "none";
+      }
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("preBookingForm");
     const loaderBox = document.getElementById("loaderBox");
-    const msg = document.getElementById("msg");
 
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      msg.innerHTML = "";
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault(); 
 
+      
       const businessName = form.business_name.value.trim();
       const userName = form.user_name.value.trim();
       const email = form.user_mail.value.trim();
+      const mobileNumber = form.mobile_number.value.trim(); // Get mobile number
+      const wantsDemo = form.demo_interest.checked;
 
-      if (!businessName || !userName || !email) {
-        msg.innerHTML = "<span class='red-text'>All required fields must be filled!</span>";
+      if (!businessName || !userName || !email || !mobileNumber) { // Validate mobile number
+        showMessageBox("All required fields must be filled!", false);
+        return; 
+      }
+
+      // Basic mobile number validation (10 digits)
+      const mobileRegex = /^[0-9]{10}$/;
+      if (!mobileRegex.test(mobileNumber)) {
+        showMessageBox("Please enter a valid 10-digit mobile number.", false);
         return;
       }
 
-      loaderBox.style.display = "block";
 
-      setTimeout(() => {
+      loaderBox.style.display = "block"; 
+
+      try {
+        const response = await fetch('https://whitecircle-inventory-system.onrender.com/api/prebooking', {
+          method: 'POST', 
+          headers: {
+            'Content-Type': 'application/json' 
+          },
+          body: JSON.stringify({ 
+            businessName: businessName,
+            userName: userName,
+            email: email,
+            mobileNumber: mobileNumber, // Include mobile number in payload
+            wantsDemo: wantsDemo
+          })
+        });
+
+        const data = await response.json(); 
+
+        if (response.ok) { 
+          loaderBox.style.display = "none"; 
+          showMessageBox(data.message || `Pre-booking successful${wantsDemo ? " — we'll send you a demo soon!" : "!"}`, true);
+          form.reset(); 
+        } else {
+          loaderBox.style.display = "none";
+          showMessageBox(data.message || "Error submitting pre-booking. Please try again.", false);
+          console.error("Backend error:", data);
+        }
+      } catch (error) {
         loaderBox.style.display = "none";
-
-        const wantsDemo = form.demo_interest.checked;
-        msg.innerHTML = <span class='green-text'>Pre-booking successful${wantsDemo ? " — we'll send you a demo soon!" : "!"}</span>;
-        form.reset();
-      }, 2000);
+        console.error("Network or fetch error:", error);
+        showMessageBox("Could not connect to the server. Please check your internet connection or try again later.", false);
+      }
     });
   });
 </script>

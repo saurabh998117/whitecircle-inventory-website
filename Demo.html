@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Whitecircle Group - Interactive Demo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --dark-navy: #0d1b2a;
+      --deep-blue: #1b263b;
+      --slate-blue: #415a77;
+      --light-blue: #778da9;
+      --off-white: #e0e1dd;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--off-white);
+      color: var(--dark-navy);
+      margin: 0;
+      overflow-x: hidden; 
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    .section-heading {
+      font-size: 2.5rem; 
+      font-weight: 700;
+      color: var(--dark-navy);
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .section-subheading {
+      font-size: 1.125rem; 
+      color: var(--slate-blue);
+      text-align: center;
+      margin-bottom: 2.5rem; 
+    }
+
+    .slideshow-container {
+      position: relative;
+      max-width: 800px;
+      margin: auto;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+    .mySlides {
+      display: none; 
+      width: 100%;
+      /* Set a fixed height for all slides to prevent layout shifts */
+      height: 450px; /* Adjust this value as needed for your images */
+      border-radius: 12px;
+      animation: fadeEffect 1.5s; 
+      display: flex; /* Use flexbox to center image vertically */
+      justify-content: center;
+      align-items: center;
+      background-color: #f0f0f0; /* Placeholder background if image doesn't fill */
+    }
+    .mySlides img {
+      width: 100%;
+      height: 100%; /* Make image fill the fixed height of the slide */
+      object-fit: contain; /* 'contain' will scale the image down to fit, 'cover' will crop to fill */
+      border-radius: 12px;
+    }
+    /* Styles for the navigation buttons (prev/next) - now outside the container */
+    .prev, .next {
+      cursor: pointer;
+      width: auto;
+      padding: 10px 15px; /* Adjusted padding for button-like appearance */
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      transition: 0.6s ease;
+      border-radius: 8px; /* Rounded corners for buttons */
+      user-select: none;
+      background-color: var(--slate-blue); /* Use theme color */
+      display: inline-block; /* Ensure they behave like buttons */
+      text-align: center;
+      text-decoration: none;
+    }
+    .prev:hover, .next:hover {
+      background-color: var(--deep-blue); /* Darker on hover */
+    }
+
+    /* Container for navigation buttons - positioned below the slideshow */
+    .slideshow-nav-controls {
+        display: flex;
+        justify-content: center;
+        gap: 20px; /* Space between buttons */
+        margin-top: 20px; /* Space below slideshow */
+    }
+
+    .text {
+      color: #f2f2f2;
+      font-size: 15px;
+      padding: 8px 12px;
+      position: absolute;
+      bottom: 8px;
+      width: 100%;
+      text-align: center;
+      background-color: rgba(0,0,0,0.4);
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+    .numbertext {
+      color: #f2f2f2;
+      font-size: 12px;
+      padding: 8px 12px;
+      position: absolute;
+      top: 0;
+      background-color: rgba(0,0,0,0.4);
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+    .dot {
+      cursor: pointer;
+      height: 15px;
+      width: 15px;
+      margin: 0 2px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.6s ease;
+    }
+    .active, .dot:hover {
+      background-color: #717171;
+    }
+    @keyframes fadeEffect {
+      from {opacity: 0.4}
+      to {opacity: 1}
+    }
+    /* Mobile navigation menu styles */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      background-color: var(--slate-blue);
+      position: absolute;
+      top: 100%; /* Position right below the header */
+      left: 0;
+      padding: 1rem 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .mobile-menu a {
+      color: white;
+      padding: 0.75rem 1rem;
+      text-align: center;
+      width: 100%;
+      display: block;
+    }
+    .mobile-menu a:hover {
+      background-color: var(--deep-blue);
+    }
+    /* Show mobile menu when open */
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    @media (max-width: 768px) {
+      .section-heading {
+        font-size: 2rem;
+      }
+      .section-subheading {
+        font-size: 1rem;
+      }
+      /* Adjust prev/next button size for mobile */
+      .prev, .next {
+        font-size: 16px;
+        padding: 8px 12px;
+      }
+      .slideshow-container {
+        max-width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+      }
+      .mySlides {
+        height: 300px; /* Adjusted height for mobile */
+        border-radius: 0;
+      }
+      .mySlides img {
+        border-radius: 0;
+      }
+      .text, .numbertext {
+        border-radius: 0;
+      }
+      /* Hide desktop nav on small screens */
+      .desktop-nav {
+        display: none;
+      }
+      .menu-toggle {
+        display: block;
+      }
+    }
+    /* Show desktop nav on larger screens */
+    @media (min-width: 769px) {
+      .desktop-nav {
+        display: flex;
+      }
+      .menu-toggle {
+        display: none;
+      }
+      .mobile-menu {
+        display: none !important; /* Ensure it's hidden on desktop */
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="bg-[#415a77] text-white p-4 fixed top-0 w-full shadow-md z-50">
+    <div class="container mx-auto flex justify-between items-center relative">
+      <a href="index.html" class="flex items-center space-x-2"> <!-- Flex container for logo and text -->
+        <img src="https://i.ibb.co/nsqVYvby/Whitecircle-Logo.jpg" alt="Whitecircle Group Logo" class="h-8 w-8 rounded-full"> <!-- Logo image -->
+        <span class="text-xl font-bold">Whitecircle Group</span> <!-- Company Name -->
+      </a>
+      
+      <!-- Desktop Navigation -->
+      <nav class="desktop-nav space-x-4">
+        <a href="index.html" class="hover:underline">Home</a>
+        <a href="index.html#about" class="hover:underline">About</a>
+        <a href="index.html#services" class="hover:underline">Services</a>
+        <a href="prebooking.html" class="hover:underline">Pre Booking</a>
+        <a href="demo.html" class="hover:underline">Demo</a>
+        <!-- Search Icon -->
+        <button class="text-white hover:text-gray-300 focus:outline-none ml-4">
+          <i class="fas fa-search"></i>
+        </button>
+      </nav>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button class="menu-toggle text-white text-2xl focus:outline-none" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Mobile Navigation Menu -->
+      <nav class="mobile-menu">
+        <a href="index.html">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#services">Services</a>
+        <a href="prebooking.html">Pre Booking</a>
+        <a href="demo.html">Demo</a>
+        <!-- Search Icon for Mobile -->
+        <button class="text-white hover:text-gray-300 focus:outline-none p-2">
+          <i class="fas fa-search"></i> Search
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="pt-20 pb-10">
+    <section class="py-10 bg-white text-center">
+      <div class="container">
+        <h2 class="section-heading">Experience the Future of Inventory Management</h2>
+        <p class="section-subheading">Dive into our interactive demo and see key features in action.</p>
+
+        <div class="slideshow-container">
+          <div class="mySlides fade">
+            <div class="numbertext">1 / 17</div>
+            <img src="https://i.ibb.co/rf1ShPjN/Whats-App-Image-2025-07-04-at-8-07-18-PM-1.jpg" alt="Inventory System Screenshot 1">
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">2 / 17</div>
+            <img src="https://i.ibb.co/PG9r0XLP/Whats-App-Image-2025-07-04-at-8-07-19-PM.jpg" alt="Inventory System Screenshot 2">
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">3 / 17</div>
+            <img src="https://i.ibb.co/k6sPhRRS/Whats-App-Image-2025-07-04-at-8-07-17-PM.jpg" alt="Inventory System Screenshot 3">
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">4 / 17</div>
+            <img src="https://i.ibb.co/zWxFyV01/Whats-App-Image-2025-07-04-at-8-07-18-PM.jpg" alt="Inventory System Screenshot 4">
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">5 / 17</div>
+            <img src="https://i.ibb.co/VWcNBb4m/Whats-App-Image-2025-07-04-at-8-07-21-PM.jpg" alt="Inventory System Screenshot 5">
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">6 / 17</div>
+            <img src="https://i.ibb.co/wNLNSPVj/Whats-App-Image-2025-07-04-at-8-07-20-PM.jpg" alt="Inventory System Screenshot 6">
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">7 / 17</div>
+            <img src="https://i.ibb.co/35FfC0rM/Screenshot-2025-07-21-134639.png" alt="Inventory System Screenshot 7">
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">8 / 17</div>
+            <img src="https://i.ibb.co/23p2W52X/Screenshot-2025-07-21-134632.png" alt="Inventory System Screenshot 8">
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">9 / 17</div>
+            <img src="https://i.ibb.co/0ysxQsGK/Screenshot-2025-07-21-134603.png" alt="Inventory System Screenshot 9">
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">10 / 17</div>
+            <img src="https://i.ibb.co/7NrpKkdC/Screenshot-2025-07-21-134716.png" alt="Inventory System Screenshot 10">
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">11 / 79</div>
+            <img src="https://i.ibb.co/7JKhxpJg/Screenshot-2025-07-21-135919.png" alt="Inventory System Screenshot 11">
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">12 / 17</div>
+            <img src="https://i.ibb.co/dsjf2fWQ/Screenshot-2025-07-21-140251.png" alt="Inventory System Screenshot 12">
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">13 / 17</div>
+            <img src="https://i.ibb.co/fdZKDx9m/Screenshot-2025-07-21-134621.png" alt="Inventory System Screenshot 14">
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">14 / 17</div>
+            <img src="https://i.ibb.co/n8L1mBRw/Screenshot-2025-07-21-154407.png" alt="Inventory System Screenshot 14">
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">15 / 17</div>
+            <img src="https://i.ibb.co/pvcG9cDQ/Screenshot-2025-07-21-135837.png" alt="Inventory System Screenshot 15">
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">16 / 17</div>
+            <img src="https://i.ibb.co/jvtMK39v/Screenshot-2025-07-21-140544.png" alt="Inventory System Screenshot 16">
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">17 / 17</div>
+            <img src="https://i.ibb.co/HLYCsF12/Screenshot-2025-07-21-142032.png" alt="Inventory System Screenshot 17">
+          </div>
+        </div>
+        
+        <!-- New container for slideshow navigation buttons -->
+        <div class="slideshow-nav-controls">
+          <a class="prev" onclick="plusSlides(-1)">&#10094; Previous</a>
+          <a class="next" onclick="plusSlides(1)">Next &#10095;</a>
+        </div>
+        <br>
+
+        <div style="text-align:center; margin-top: 1rem;">
+          <span class="dot" onclick="currentSlide(1)"></span>
+          <span class="dot" onclick="currentSlide(2)"></span>
+          <span class="dot" onclick="currentSlide(3)"></span>
+          <span class="dot" onclick="currentSlide(4)"></span>
+          <span class="dot" onclick="currentSlide(5)"></span>
+          <span class="dot" onclick="currentSlide(6)"></span>
+          <span class="dot" onclick="currentSlide(7)"></span>
+          <span class="dot" onclick="currentSlide(8)"></span>
+          <span class="dot" onclick="currentSlide(9)"></span>
+          <span class="dot" onclick="currentSlide(10)"></span>
+          <span class="dot" onclick="currentSlide(11)"></span>
+          <span class="dot" onclick="currentSlide(12)"></span>
+          <span class="dot" onclick="currentSlide(13)"></span>
+          <span class="dot" onclick="currentSlide(14)"></span>
+          <span class="dot" onclick="currentSlide(15)"></span>
+          <span class="dot" onclick="currentSlide(16)"></span>
+          <span class="dot" onclick="currentSlide(17)"></span>
+          <span class="dot" onclick="currentSlide(18)"></span>
+          <span class="dot" onclick="currentSlide(19)"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="bg-[#415a77] text-white py-8">
+    <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div>
+        <h2 class="font-bold text-lg mb-2">Whitecircle Group</h2>
+        <p>IT Solutions & Consulting</p>
+        <a href="https://whitecirclegroup.in" target="_blank" class="hover:underline">🌐www.whitecirclegroup.in</a>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Quick Links</h4>
+        <ul>
+          <li><a href="#pricing" class="hover:underline">Pricing</a></li>
+          <li><a href="demo.html" class="hover:underline">Demo</a></li>
+          <li><a href="prebooking.html" class="hover:underline">Pre-Booking</a></li>
+          <li><a href="#about" class="hover:underline">About Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Contact Info</h4>
+        <ul>
+          <li><a href="tel:+917509759872" class="hover:underline">+91-7509759872</a></li>
+          <li><a href="mailto:sales@whitecirclegroup.in" class="hover:underline">sales@whitecirclegroup.in</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Follow Us</h4>
+        <div class="flex space-x-4 mt-2">
+          <a href="#" class="text-white hover:text-gray-300 text-2xl" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="text-white hover:text-gray-300 text-2xl" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-white hover:text-gray-300 text-2xl" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="text-white hover:text-gray-300 text-2xl" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-6 text-sm">© 2025 Whitecircle Group. All rights reserved.</div>
+  </footer>
+
+  <script>
+    // Script for mobile menu toggle
+    document.querySelector('.menu-toggle').addEventListener('click', function() {
+      document.querySelector('.mobile-menu').classList.toggle('open');
+    });
+
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("dot");
+      if (n > slides.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = slides.length}
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";
+      dots[slideIndex-1].className += " active";
+    }
+  </script>
+</body>
+</html>
